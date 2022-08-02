@@ -94,7 +94,7 @@ const MyNotes = () => {
                   </span>
 
                   <div>
-                    <Button href={`/api/notes/${note._id}`}>Edit</Button>
+                    <Button href={`/note/${note._id}`}>Edit</Button>
                     <Button
                       variant="danger"
                       className="mx-2"

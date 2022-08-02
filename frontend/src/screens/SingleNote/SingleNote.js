@@ -7,8 +7,12 @@ import { deleteNoteAction, updateNoteAction } from "../../actions/noteAction";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import ReactMarkdown from "react-markdown";
+import {useParams} from "react-router-dom"
 
 function SingleNote({ match, history }) {
+  
+  const params=useParams();
+  console.log(params.id)
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
@@ -31,7 +35,7 @@ function SingleNote({ match, history }) {
 
   useEffect(() => {
     const fetching = async () => {
-      const { data } = await axios.get(`/api/notes/${match.params.id}`);
+      const { data } = await axios.get(`/api/notes/${params.id}`);
 
       setTitle(data.title);
       setContent(data.content);
@@ -40,7 +44,7 @@ function SingleNote({ match, history }) {
     };
 
     fetching();
-  }, [match.params.id, date]);
+  }, [params.id, date]);
 
   const resetHandler = () => {
     setTitle("");
@@ -50,7 +54,7 @@ function SingleNote({ match, history }) {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateNoteAction(match.params.id, title, content, category));
+    dispatch(updateNoteAction(params.id, title, content, category));
     if (!title || !content || !category) return;
 
     resetHandler();
@@ -113,7 +117,7 @@ function SingleNote({ match, history }) {
             <Button
               className="mx-2"
               variant="danger"
-              onClick={() => deleteHandler(match.params.id)}
+              onClick={() => deleteHandler(params.id)}
             >
               Delete Note
             </Button>

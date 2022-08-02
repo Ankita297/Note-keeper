@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Navbar,
@@ -20,9 +20,9 @@ const Header = () => {
   const { userInfo } = userLogin;
   const logOutHandler = () => {
     dispatch(logout());
-    navigate('/')
+    navigate("/");
   };
-    useEffect(() => {}, [userInfo]);
+  useEffect(() => {}, [userInfo]);
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -40,17 +40,24 @@ const Header = () => {
               />
             </Form>
           </Nav>
-          <Nav navbarScroll>
-            <Nav.Link href="/mynotes">My Notes</Nav.Link>
-            <NavDropdown title="Ankita" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+          {userInfo ? (
+            <Nav navbarScroll>
+              <Nav.Link href="/mynotes">My Notes</Nav.Link>
+              <NavDropdown title={userInfo?.name} id="navbarScrollingDropdown">
+                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
 
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={logOutHandler}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={logOutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          ) : (
+            <Nav>
+              {" "}
+              <Nav.Link href="/login">Login</Nav.Link>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
