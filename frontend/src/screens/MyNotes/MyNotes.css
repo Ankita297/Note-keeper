@@ -1,0 +1,11 @@
+.notes_body{
+    margin-top: 15px;
+}
+.card_header{
+    display: flex;
+    flex: 1;
+}
+.card_header_r{
+   align-items: end;
+
+}
