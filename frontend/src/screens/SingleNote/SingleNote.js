@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from "react";
-import MainScreen from "../../components/MainScreen";
-import axios from "axios";
-import { Button, Card, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteNoteAction, updateNoteAction } from "../../actions/noteAction";
-import ErrorMessage from "../../components/ErrorMessage";
-import Loading from "../../components/Loading";
-import ReactMarkdown from "react-markdown";
-import {useParams} from "react-router-dom"
+import { Card, Form } from "react-bootstrap";
 
-function SingleNote({ match, history }) {
-  
-  const params=useParams();
-  console.log(params.id)
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
-  const [category, setCategory] = useState();
+import ReactMarkdown from "react-markdown";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "@mui/material";
+import MainScreen from "../MainScreen/MainScreen";
+import { useDispatch, useSelector } from "react-redux";
+import ErrorMessage from "../../components/ErrorMessage";
+import Loading from "../../components/Loading/Loading";
+import { deleteNoteAction, updateNoteAction } from "../../action/notesAction";
+import axios from "axios";
+const SingleNote = () => {
+  const navigate = useNavigate();
+  const params = useParams();
+  console.log(params.id);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
 
   const dispatch = useDispatch();
 
+  const noteDelete = useSelector((state) => state.noteDelete);
+
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { loading, error } = noteUpdate;
-
-  const noteDelete = useSelector((state) => state.noteDelete);
   const { loading: loadingDelete, error: errorDelete } = noteDelete;
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     if (window.confirm("Are you sure?")) {
       dispatch(deleteNoteAction(id));
+      await navigate("/mynotes");
     }
-    history.push("/mynotes");
   };
 
   useEffect(() => {
@@ -51,16 +52,14 @@ function SingleNote({ match, history }) {
     setCategory("");
     setContent("");
   };
-
   const updateHandler = (e) => {
     e.preventDefault();
     dispatch(updateNoteAction(params.id, title, content, category));
     if (!title || !content || !category) return;
 
     resetHandler();
-    history.push("/mynotes");
+    navigate("/mynotes");
   };
-
   return (
     <MainScreen title="Edit Note">
       <Card>
@@ -109,14 +108,16 @@ function SingleNote({ match, history }) {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
+              <br></br>
             </Form.Group>
             {loading && <Loading size={50} />}
-            <Button variant="primary" type="submit">
+            <Button variant="contained" type="submit">
               Update Note
             </Button>
             <Button
               className="mx-2"
               variant="danger"
+              style={{ backgroundColor: "red", color: "white" }}
               onClick={() => deleteHandler(params.id)}
             >
               Delete Note
@@ -130,6 +131,6 @@ function SingleNote({ match, history }) {
       </Card>
     </MainScreen>
   );
-}
+};
 
 export default SingleNote;

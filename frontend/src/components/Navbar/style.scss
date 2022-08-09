@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Montserrat&display=swap");
+
+$primary-color: #85ccff;
+$secondary-color: #1c1b1a;
+
+.header {
+  background-color: $secondary-color;
+  color: $primary-color;
+          font-family: "Montserrat", cursive;
+
+  img {
+    width: 60px;
+    height: auto;
+  }
+  .brand {
+    color: #fff !important;
+  }
+  .nav-link{
+    color: #fff!important;
+  }
+}

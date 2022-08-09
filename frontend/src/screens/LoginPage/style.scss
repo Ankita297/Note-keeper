@@ -1,0 +1,28 @@
+$primary-color: #85ccff;
+$secondary-color: #1c1b1a;
+.login-page {
+  background-color: $primary-color;
+  font-family: "Montserrat", cursive;
+  margin-top: 25px;
+
+  h3 {
+    font-weight: bold;
+  }
+  .link {
+    color: $secondary-color;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+        display: block;
+
+    text-align: center;
+  }
+  .card-box {
+    width: 75%;
+    margin: auto;
+    background-color: $primary-color;
+  }
+  .sumbit-btn {
+    background-color: $secondary-color;
+  }
+}

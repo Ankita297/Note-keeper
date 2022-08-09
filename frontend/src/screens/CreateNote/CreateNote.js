@@ -1,49 +1,45 @@
-import React, { useEffect, useState } from "react";
-import MainScreen from "../../components/MainScreen";
-import { Button, Card, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { createNoteAction } from "../../actions/noteAction";
-import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import React, { useState } from "react";
+import { Card, Form } from "react-bootstrap";
+import MainScreen from "../MainScreen/MainScreen";
+import { Button } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 
-function CreateNote({ history }) {
+import "./style.scss";
+import { createNoteAction } from "../../action/notesAction";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+const CreateNote = () => {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const noteCreate = useSelector((state) => state.noteCreate);
+
+  const { loading, error, note } = noteCreate;
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-
-  const dispatch = useDispatch();
-
-  const noteCreate = useSelector((state) => state.noteCreate);
-  const { loading, error, note } = noteCreate;
-
-  console.log(note);
 
   const resetHandler = () => {
     setTitle("");
     setCategory("");
     setContent("");
-    
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createNoteAction(title, content, category));
     if (!title || !content || !category) return;
-
+    dispatch(createNoteAction(title, content, category));
     resetHandler();
-    history.push("/mynotes");
+    navigate("/mynotes");
   };
 
-  useEffect(() => {}, []);
-
   return (
-    <MainScreen title="Create a Note">
+    <MainScreen title={`Create a Note`}>
       <Card>
         <Card.Header>Create a new Note</Card.Header>
         <Card.Body>
           <Form onSubmit={submitHandler}>
-            {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
             <Form.Group controlId="title">
               <Form.Label>Title</Form.Label>
               <Form.Control
@@ -53,7 +49,6 @@ function CreateNote({ history }) {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId="content">
               <Form.Label>Content</Form.Label>
               <Form.Control
@@ -64,6 +59,7 @@ function CreateNote({ history }) {
                 onChange={(e) => setContent(e.target.value)}
               />
             </Form.Group>
+
             {content && (
               <Card>
                 <Card.Header>Note Preview</Card.Header>
@@ -72,7 +68,6 @@ function CreateNote({ history }) {
                 </Card.Body>
               </Card>
             )}
-
             <Form.Group controlId="content">
               <Form.Label>Category</Form.Label>
               <Form.Control
@@ -82,11 +77,20 @@ function CreateNote({ history }) {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </Form.Group>
-            {loading && <Loading size={50} />}
-            <Button type="submit" variant="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              className="sumbit-btn mt-2"
+            >
               Create Note
             </Button>
-            <Button className="mx-2" onClick={resetHandler} variant="danger">
+
+            <Button
+              className="sumbit-btn mt-2 mx-3"
+              variant="contained"
+              type="submit"
+              onClick={resetHandler}
+            >
               Reset Feilds
             </Button>
           </Form>
@@ -98,6 +102,6 @@ function CreateNote({ history }) {
       </Card>
     </MainScreen>
   );
-}
+};
 
 export default CreateNote;

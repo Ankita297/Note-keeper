@@ -1,0 +1,12 @@
+$primary-color: #85ccff;
+$secondary-color: #1c1b1a;
+
+.main-screen {
+  .title {
+    color: $secondary-color;
+    font-size:3vw;
+    margin-top: 20px;
+    font-family: "Montserrat", cursive;
+    font-weight: bold;
+  }
+}

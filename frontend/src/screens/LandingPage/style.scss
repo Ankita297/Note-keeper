@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Montserrat&display=swap");
+
+$primary-color: #85ccff;
+$secondary-color: #1c1b1a;
+
+.main-landing-page {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  .landing-page {
+    display: flex;
+    margin: auto;
+    margin-bottom: 25px;
+    justify-content: center;
+    height: 100%;
+    width: 75vw;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
+
+    .left {
+      text-align: center;
+      width: 45%;
+      background-color: $secondary-color;
+      padding: 20px;
+      height: 100%;
+      @media (max-width: 900px) {
+        width: 100%;
+      }
+      h1 {
+        font-size: 3.5vw;
+        color: #fff;
+        font-family: "Bungee Inline", cursive;
+        span {
+          color: #85ccff;
+        }
+      }
+      p {
+        color: #fff;
+        font-size: 20px;
+        font-family: "Montserrat", cursive;
+      }
+      .logo-img {
+        margin-top: 12px;
+        width: 60%;
+      }
+    }
+    .right {
+      width: 55%;
+      height: auto;
+      background-color: $primary-color;
+      @media (max-width: 900px) {
+        width: 100%;
+      }
+    }
+  }
+}

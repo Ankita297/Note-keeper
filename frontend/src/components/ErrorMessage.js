@@ -1,12 +1,11 @@
-import React from 'react'
-import { Alert } from 'react-bootstrap';
-
-const ErrorMessage = ({variant="info",children}) => {
+import React from "react";
+import { Alert } from "@mui/material";
+const ErrorMessage = ({severity="info",children}) => {
   return (
-    <Alert style={{ fontSize: 20 }} variant={variant}>
-      <strong>{children}</strong>
+    <Alert style={{ fontSize: 20 }} severity={severity}>
+      {children}
     </Alert>
   );
-}
+};
 
-export default ErrorMessage
+export default ErrorMessage;
